@@ -24,7 +24,7 @@ def __multiple_promo(basket, sku, count, price):
     offers = sku_count / count
     if offers > 0:
         promo_cost = offers * price
-    basket[sku] -= sku_count % count
+    basket[sku] -= offers * count
     return basket, promo_cost
 
 def promo_a_5(basket):
