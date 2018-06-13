@@ -70,7 +70,10 @@ def __multiple_promo(basket, sku, count, price):
     return basket, promo_cost
 
 def __get_some_free(basket, buy_sku, buy_count, free_sku):
-    offers = basket[buy_sku] / buy_count
+    if buy_sku != free_sku:
+        offers = basket[buy_sku] / buy_count
+    else:
+        offers = basket[buy_sku] / (buy_count + 1)
     if offers > 0:
         basket[free_sku] = max(0, basket[free_sku] - offers)
     return basket, 0
@@ -88,11 +91,11 @@ def promo_e_bfree(basket):
     return __get_some_free(basket, 'E', 2, 'B')
 
 promotions = [
-    lambda b: return __multiple_promo(b, 'A', 5, 200),
-    __multiple_promo('A', 3, 130),
-    __get_some_free(basket, 'E', 2, 'B'),
-    __multiple_promo(basket, 'B', 2, 45),
-    __get_some_free(basket, 'F', 2, 'F'),
+    lambda b: __get_some_free(b, 'E', 2, 'B'),
+    lambda b: __get_some_free(b, 'F', 2, 'F'),
+    lambda b: __multiple_promo(b, 'A', 5, 200),
+    lambda b: __multiple_promo(b, 'A', 3, 130),
+    lambda b: __multiple_promo(b, 'B', 2, 45),
 ]
 
 # noinspection PyUnusedLocal
