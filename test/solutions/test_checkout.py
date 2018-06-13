@@ -18,6 +18,8 @@ class TestSum(unittest.TestCase):
         self.assertEqual(checkout("FFFFF"), 40)
         self.assertEqual(checkout("FFFFFF"), 40)
 
+    def test_group_buy(self):
+        self.assertEqual(checkout("ZZTSR"), 50+20+45)
 
 if __name__ == '__main__':
     unittest.main()

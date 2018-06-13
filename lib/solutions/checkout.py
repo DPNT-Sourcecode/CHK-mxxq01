@@ -51,7 +51,8 @@ def __group_discount(basket, group, count, price):
     offers = sum([basket[sku] for sku in group]) / count
     if offers > 0:
         promo_cost = offers * price
-    
+    ordering = sorted([(sku, sku_prices[sku]) for sku in group], key=lambda k: k[0], reverse=True)
+    print ordering
     return basket, promo_cost
 
 # | A    | 50    | 3A for 130, 5A for 200          |
@@ -73,6 +74,7 @@ def __group_discount(basket, group, count, price):
 # | Z    | 21    | buy any 3 of (S,T,X,Y,Z) for 45 |
 
 promotions = [
+    lambda b: __group_discount(b, ['S', 'T', 'X', 'Y', 'Z'], 3, 45),
     lambda b: __get_some_free(b, 'E', 2, 'B'),
     lambda b: __get_some_free(b, 'F', 2, 'F'),
     lambda b: __get_some_free(b, 'N', 3, 'M'),
