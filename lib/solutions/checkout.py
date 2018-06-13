@@ -1,3 +1,5 @@
+from collections import defaultdict
+
 # +------+-------+------------------------+
 # | Item | Price | Special offers         |
 # +------+-------+------------------------+
@@ -18,11 +20,11 @@ sku_prices = {
 
 def __multiple_promo(basket, sku, count, price):
     promo_cost = 0
-    a_count = basket[sku]
-    offers = a_count / count
+    sku_count = basket[sku]
+    offers = sku_count / count
     if offers > 0:
         promo_cost = offers * price
-    basket[sku] -= a_count % count
+    basket[sku] -= sku_count % count
     return basket, promo_cost
 
 def promo_a_5(basket):
@@ -32,8 +34,11 @@ def promo_a_3(basket):
     return __multiple_promo(basket, 'A', 3, 130)
 
 def promo_e_bfree(basket):
-    promo_cost = 0
-    return basket, promo_cost
+    e_count = basket['E']
+    offers = e_count / 2
+    if offers > 0:
+        basket['B'] = max(0, basket['B'] - offers)
+    return basket, 0
 
 promotions = [
     promo_a_5,
@@ -44,7 +49,7 @@ promotions = [
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus):
-    basket = {}
+    basket = defaultdict(lambda: 0)
     for sku in skus:
         if sku not in sku_prices:
             return -1
