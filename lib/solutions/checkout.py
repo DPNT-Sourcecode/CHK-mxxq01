@@ -78,24 +78,28 @@ def __get_some_free(basket, buy_sku, buy_count, free_sku):
         basket[free_sku] = max(0, basket[free_sku] - offers)
     return basket, 0
 
-def promo_a_5(basket):
-    return __multiple_promo(basket, 'A', 5, 200)
-
-def promo_a_3(basket):
-    return __multiple_promo(basket, 'A', 3, 130)
-
-def promo_b_2(basket):
-    return __multiple_promo(basket, 'B', 2, 45)
-
-def promo_e_bfree(basket):
-    return __get_some_free(basket, 'E', 2, 'B')
+# | H    | 10    | 5H for 45, 10H for 80  |
+# | K    | 80    | 2K for 150             |
+# | P    | 50    | 5P for 200             |
+# | Q    | 30    | 3Q for 80              |
+# | V    | 50    | 2V for 90, 3V for 130  |
 
 promotions = [
     lambda b: __get_some_free(b, 'E', 2, 'B'),
     lambda b: __get_some_free(b, 'F', 2, 'F'),
+    lambda b: __get_some_free(b, 'N', 3, 'M'),
+    lambda b: __get_some_free(b, 'R', 3, 'Q'),
+    lambda b: __get_some_free(b, 'U', 3, 'U'),
     lambda b: __multiple_promo(b, 'A', 5, 200),
     lambda b: __multiple_promo(b, 'A', 3, 130),
     lambda b: __multiple_promo(b, 'B', 2, 45),
+    lambda b: __multiple_promo(b, 'H', 10, 80),
+    lambda b: __multiple_promo(b, 'H', 5, 45),
+    lambda b: __multiple_promo(b, 'K', 2, 150),
+    lambda b: __multiple_promo(b, 'P', 5, 200),
+    lambda b: __multiple_promo(b, 'Q', 3, 80),
+    lambda b: __multiple_promo(b, 'V', 3, 130),
+    lambda b: __multiple_promo(b, 'V', 2, 90),
 ]
 
 # noinspection PyUnusedLocal
