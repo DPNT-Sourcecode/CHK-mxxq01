@@ -8,6 +8,7 @@ from collections import defaultdict
 # | C    | 20    |                        |
 # | D    | 15    |                        |
 # | E    | 40    | 2E get one B free      |
+# | F    | 10    | 2F get one F free      |
 # +------+-------+------------------------+
 
 sku_prices = {
@@ -16,6 +17,7 @@ sku_prices = {
     'C': 20,
     'D': 15,
     'E': 40,
+    'F': 10,
 }
 
 def __multiple_promo(basket, sku, count, price):
@@ -43,11 +45,19 @@ def promo_e_bfree(basket):
         basket['B'] = max(0, basket['B'] - offers)
     return basket, 0
 
+def promo_f_ffree(basket):
+    f_count = basket['F']
+    offers = f_count / 3
+    if offers > 0:
+        basket['F'] -= offers
+    return basket, 0
+
 promotions = [
     promo_a_5,
     promo_a_3,
     promo_e_bfree,
     promo_b_2,
+    promo_f_ffree,
 ]
 
 # noinspection PyUnusedLocal

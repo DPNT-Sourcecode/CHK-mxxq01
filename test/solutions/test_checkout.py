@@ -13,6 +13,10 @@ class TestSum(unittest.TestCase):
         self.assertEqual(checkout("EEBB"), 40*2+30)
         self.assertEqual(checkout("EEBBB"), 40*2+45)
         self.assertEqual(checkout("EEEEBBB"), 40*4+30)
+        self.assertEqual(checkout("FF"), 20)
+        self.assertEqual(checkout("FFF"), 20)
+        self.assertEqual(checkout("FFFFF"), 40)
+        self.assertEqual(checkout("FFFFFF"), 40)
 
 
 if __name__ == '__main__':
