@@ -54,33 +54,13 @@ def __group_discount(basket, group, count, price):
     promo_cost = offers * price
     promo_skus = offers * count
     ordering = sorted([(sku, sku_prices[sku]) for sku in group], key=lambda k: k[1], reverse=True)
-    print basket, promo_skus, promo_cost
     for sku, _ in ordering:
         if promo_skus == 0:
             break
         to_remove = basket[sku] - promo_skus
         promo_skus = max(0, promo_skus - basket[sku])
         basket[sku] = max(0, to_remove)
-    print basket
     return basket, promo_cost
-
-# | A    | 50    | 3A for 130, 5A for 200          |
-# | B    | 30    | 2B for 45                       |
-# | E    | 40    | 2E get one B free               |
-# | F    | 10    | 2F get one F free               |
-# | H    | 10    | 5H for 45, 10H for 80           |
-# | K    | 70    | 2K for 120                      |
-# | N    | 40    | 3N get one M free               |
-# | P    | 50    | 5P for 200                      |
-# | Q    | 30    | 3Q for 80                       |
-# | R    | 50    | 3R get one Q free               |
-# | S    | 20    | buy any 3 of (S,T,X,Y,Z) for 45 |
-# | T    | 20    | buy any 3 of (S,T,X,Y,Z) for 45 |
-# | U    | 40    | 3U get one U free               |
-# | V    | 50    | 2V for 90, 3V for 130           |
-# | X    | 17    | buy any 3 of (S,T,X,Y,Z) for 45 |
-# | Y    | 20    | buy any 3 of (S,T,X,Y,Z) for 45 |
-# | Z    | 21    | buy any 3 of (S,T,X,Y,Z) for 45 |
 
 promotions = [
     lambda b: __group_discount(b, ['S', 'T', 'X', 'Y', 'Z'], 3, 45),

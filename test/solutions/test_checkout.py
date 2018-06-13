@@ -23,6 +23,7 @@ class TestSum(unittest.TestCase):
         self.assertEqual(checkout("ZZZ"), 45)
         self.assertEqual(checkout("ZZZZ"), 45+21)
         self.assertEqual(checkout("ZZZX"), 45+17)
+        self.assertEqual(checkout("ZZZZXS"), 45*2)
 
 if __name__ == '__main__':
     unittest.main()
