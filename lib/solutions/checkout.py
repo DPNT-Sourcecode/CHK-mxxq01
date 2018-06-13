@@ -54,10 +54,14 @@ def __group_discount(basket, group, count, price):
     promo_cost = offers * price
     promo_skus = offers * count
     ordering = sorted([(sku, sku_prices[sku]) for sku in group], key=lambda k: k[1], reverse=True)
+    print basket, promo_skus, promo_cost
     for sku, _ in ordering:
         if promo_skus == 0:
             break
+        to_remove = basket[sku] - promo_skus
         promo_skus = max(0, promo_skus - basket[sku])
+        basket[sku] = max(0, to_remove)
+    print basket
     return basket, promo_cost
 
 # | A    | 50    | 3A for 130, 5A for 200          |
