@@ -36,6 +36,8 @@ def checkout(skus):
 
     cost = 0
     for sku, count in basket.items():
+        if sku not in sku_prices:
+            return -1
         if sku in promotions.keys() and count / promotions[sku]['quantity'] != 0:
             cost += (count / promotions[sku]['quantity']) * promotions[sku]['price']
             cost += (count % promotions[sku]['quantity']) * sku_prices[sku]
