@@ -33,6 +33,9 @@ def promo_a_5(basket):
 def promo_a_3(basket):
     return __multiple_promo(basket, 'A', 3, 130)
 
+def promo_b_2(basket):
+    return __multiple_promo(basket, 'B', 2, 45)
+
 def promo_e_bfree(basket):
     e_count = basket['E']
     offers = e_count / 2
@@ -44,6 +47,7 @@ promotions = [
     promo_a_5,
     promo_a_3,
     promo_e_bfree,
+    promo_b_2,
 ]
 
 # noinspection PyUnusedLocal

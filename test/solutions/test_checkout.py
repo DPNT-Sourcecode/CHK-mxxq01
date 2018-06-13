@@ -11,6 +11,8 @@ class TestSum(unittest.TestCase):
         self.assertEqual(checkout("AAAAB"), 130+50+30)
         self.assertEqual(checkout("AAAAAAAAB"), 130+200+30)
         self.assertEqual(checkout("EEBB"), 40*2+30)
+        self.assertEqual(checkout("EEBBB"), 40*2+45)
+        self.assertEqual(checkout("EEEEBBB"), 40*4+30)
 
 
 if __name__ == '__main__':
