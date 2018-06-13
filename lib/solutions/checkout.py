@@ -65,7 +65,7 @@ promotions = [
 def checkout(skus):
     basket = defaultdict(lambda: 0)
     for sku in skus:
-        if sku not in sku_prices:
+        if sku not in sku_prices.keys():
             return -1
         if sku not in basket:
             basket[sku] = 0
@@ -77,11 +77,5 @@ def checkout(skus):
         cost += promo_cost
     for sku, count in basket.items():
         cost += count * sku_prices[sku]
-
-        # if sku in promotions.keys() and count / promotions[sku]['quantity'] != 0:
-        #     cost += (count / promotions[sku]['quantity']) * promotions[sku]['price']
-        #     cost += (count % promotions[sku]['quantity']) * sku_prices[sku]
-        # else:
-        #     cost += count * sku_prices[sku]
 
     return cost
