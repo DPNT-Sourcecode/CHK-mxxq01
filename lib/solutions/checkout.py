@@ -16,13 +16,20 @@ sku_prices = {
     'E': 40,
 }
 
-def promo_a_3(basket):
+def __multiple_promo(basket, sku, count, price):
     promo_cost = 0
+    a_count = basket[sku]
+    offers = a_count / count
+    if offers > 0:
+        promo_cost = offers * price
+    basket[sku] -= a_count % count
     return basket, promo_cost
 
 def promo_a_5(basket):
-    promo_cost = 0
-    return basket, promo_cost
+    return __multiple_promo(basket, 'A', 5, 200)
+
+def promo_a_3(basket):
+    return __multiple_promo(basket, 'A', 3, 130)
 
 def promo_e_bfree(basket):
     promo_cost = 0
