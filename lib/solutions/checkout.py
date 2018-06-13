@@ -31,8 +31,7 @@ sku_prices = {
 
 def __multiple_promo(basket, sku, count, price):
     promo_cost = 0
-    sku_count = basket[sku]
-    offers = sku_count / count
+    offers = basket[sku] / count
     if offers > 0:
         promo_cost = offers * price
     basket[sku] -= offers * count
@@ -46,6 +45,14 @@ def __get_some_free(basket, buy_sku, buy_count, free_sku):
     if offers > 0:
         basket[free_sku] = max(0, basket[free_sku] - offers)
     return basket, 0
+
+def __group_discount(basket, group, count, price):
+    promo_cost = 0
+    offers = sum([basket[sku] for sku in group]) / count
+    if offers > 0:
+        promo_cost = offers * price
+    
+    return basket, promo_cost
 
 # | A    | 50    | 3A for 130, 5A for 200          |
 # | B    | 30    | 2B for 45                       |
