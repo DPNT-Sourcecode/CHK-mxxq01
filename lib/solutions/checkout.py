@@ -28,4 +28,18 @@ promotions = {
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus):
-    raise NotImplementedError()
+    basket = {}
+    for sku in skus:
+        if sku not in basket:
+            basket[sku] = 0
+        basket[sku] += 1
+
+    cost = 0
+    for sku, count in basket.items():
+        if sku in promotions.keys() and count / promotions[sku]['quantity'] != 0:
+            cost += (count / promotions[sku]['quantity']) * promotions[sku]['price']
+            cost += (count % promotions[sku]['quantity']) * sku_prices[sku]
+        else:
+            cost += count * sku_prices[sku]
+
+    return cost
