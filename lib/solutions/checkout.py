@@ -16,16 +16,20 @@ sku_prices = {
     'E': 40,
 }
 
-promotions = {
-    'A': {
-        'quantity': 3,
-        'price': 130,
-    },
-    'B': {
-        'quantity': 2,
-        'price': 45,
-    }
-}
+def promo_a_3(basket):
+    return basket
+
+def promo_a_5(basket):
+    return basket
+
+def promo_e_bfree(basket):
+    return basket
+
+promotions = [
+    promo_a_5,
+    promo_a_3,
+    promo_e_bfree,
+]
 
 # noinspection PyUnusedLocal
 # skus = unicode string
