@@ -74,7 +74,7 @@ promotions = [
     lambda b: __multiple_promo(b, 'B', 2, 45),
     lambda b: __multiple_promo(b, 'H', 10, 80),
     lambda b: __multiple_promo(b, 'H', 5, 45),
-    lambda b: __multiple_promo(b, 'K', 2, 150),
+    lambda b: __multiple_promo(b, 'K', 2, 120),
     lambda b: __multiple_promo(b, 'P', 5, 200),
     lambda b: __multiple_promo(b, 'Q', 3, 80),
     lambda b: __multiple_promo(b, 'V', 3, 130),
