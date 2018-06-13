@@ -17,13 +17,16 @@ sku_prices = {
 }
 
 def promo_a_3(basket):
-    return basket
+    promo_cost = 0
+    return basket, promo_cost
 
 def promo_a_5(basket):
-    return basket
+    promo_cost = 0
+    return basket, promo_cost
 
 def promo_e_bfree(basket):
-    return basket
+    promo_cost = 0
+    return basket, promo_cost
 
 promotions = [
     promo_a_5,
@@ -36,18 +39,23 @@ promotions = [
 def checkout(skus):
     basket = {}
     for sku in skus:
+        if sku not in sku_prices:
+            return -1
         if sku not in basket:
             basket[sku] = 0
         basket[sku] += 1
 
     cost = 0
+    for promo in promotions:
+        basket, promo_cost = promo(basket)
+        cost += promo_cost
     for sku, count in basket.items():
-        if sku not in sku_prices:
-            return -1
-        if sku in promotions.keys() and count / promotions[sku]['quantity'] != 0:
-            cost += (count / promotions[sku]['quantity']) * promotions[sku]['price']
-            cost += (count % promotions[sku]['quantity']) * sku_prices[sku]
-        else:
-            cost += count * sku_prices[sku]
+        cost += count * sku_prices[sku]
+
+        # if sku in promotions.keys() and count / promotions[sku]['quantity'] != 0:
+        #     cost += (count / promotions[sku]['quantity']) * promotions[sku]['price']
+        #     cost += (count % promotions[sku]['quantity']) * sku_prices[sku]
+        # else:
+        #     cost += count * sku_prices[sku]
 
     return cost
