@@ -49,10 +49,15 @@ def __get_some_free(basket, buy_sku, buy_count, free_sku):
 def __group_discount(basket, group, count, price):
     promo_cost = 0
     offers = sum([basket[sku] for sku in group]) / count
-    if offers > 0:
-        promo_cost = offers * price
-    ordering = sorted([(sku, sku_prices[sku]) for sku in group], key=lambda k: k[0], reverse=True)
-    print ordering
+    if offers == 0:
+        return basket, 0
+    promo_cost = offers * price
+    promo_skus = offers * count
+    ordering = sorted([(sku, sku_prices[sku]) for sku in group], key=lambda k: k[1], reverse=True)
+    for sku, _ in ordering:
+        if promo_skus == 0:
+            break
+        promo_skus = max(0, promo_skus - basket[sku])
     return basket, promo_cost
 
 # | A    | 50    | 3A for 130, 5A for 200          |
